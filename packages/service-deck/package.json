@@ -1,0 +1,27 @@
+{
+  "name": "service-deck",
+  "version": "0.3.0",
+  "description": "本地服务控制台：统一服务 registry（防端口冲突）+ DSH 界面启动/停止/重启按钮组 + agent 工具；自动跟随当前会话的工作区并自动探测登记。",
+  "private": true,
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "package.json"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web"
+    }
+  },
+  "license": "MIT"
+}

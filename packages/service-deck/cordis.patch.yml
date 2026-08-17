@@ -1,0 +1,8 @@
+# Bundle patch layer for service-deck.
+# Referenced by package.json `dsh.bundle.patch`; `dsh plugin add`
+# reconciles this package into the profile's bundle list and this row
+# mounts the plugin. `name` is the package name: the Loader resolves it
+# from the profile's node_modules.
+- insert:
+    - id: service-deck
+      name: service-deck

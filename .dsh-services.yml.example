@@ -1,0 +1,21 @@
+# 项目内服务配置示例：把本文件改名为 .dsh-services.yml 放在项目根目录
+# 该文件是 service-deck 探测的权威来源（优先级高于自动探测），人和 agent 都可以编辑
+
+services:
+  web:
+    command: npm run dev
+    cwd: .
+    port: 5173        # 期望端口；启动时被占用则自动换空闲端口（portMode=auto）
+    portMode: auto    # auto: 冲突自动分配并注入；fixed: 冲突报错
+    persist: true     # DSH 重启后继续存活
+    template: npm     # npm|uvicorn|django|flask|docker|make|just|go|custom
+    env:
+      NODE_ENV: development
+
+  # 多服务项目可以写多条：
+  # api:
+  #   command: uvicorn main:app --reload
+  #   port: 8000
+  #   portMode: auto
+  #   persist: true
+  #   template: uvicorn
