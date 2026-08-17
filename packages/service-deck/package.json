@@ -1,8 +1,7 @@
 {
   "name": "dsh-service-deck",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Local service control deck for DeepSeek Harness: a global per-project service registry with port-conflict arbitration, one-click start/stop/restart buttons in the Web UI, start-command normalization across project types, auto-follow of the active session, and 7 agent tools.",
-  "private": true,
   "type": "module",
   "main": "lib/index.js",
   "exports": {
@@ -20,8 +19,7 @@
     "node": ">=20"
   },
   "scripts": {
-    "check": "node --check lib/index.js && node --check lib/client.js",
-    "prepare": "node --check lib/index.js && node --check lib/client.js"
+    "check": "node --check lib/index.js && node --check lib/client.js"
   },
   "keywords": [
     "deepseek-harness",
@@ -37,7 +35,7 @@
     "url": "git+https://github.com/realpkuasule/dsh-launch-pad.git"
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "^4.0.0",
+    "@deepseek-ai/cordis": "^4.0.1",
     "@deepseek-ai/dsh-tools": "^0.1.0-rc.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
