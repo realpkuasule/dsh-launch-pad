@@ -7,7 +7,7 @@
 > dsh plugin --profile web add github:realpkuasule/dsh-launch-pad
 > # then restart DSH and hard-refresh the page
 > ```
-> Package name: `dsh-launch-pad`（与仓库同名）。 Source of the plugin package: [`packages/dsh-launch-pad/`](./packages/dsh-launch-pad/).
+> Package name: `dsh-launch-pad`（与仓库同名）。 Source of the plugin package: [`./`](./).
 
 统一的本地服务管理方案：**任何项目类型的启动命令归一化 + 全局 registry 防端口冲突 + DSH 界面一键启动/停止/重启 + agent 工具双通道 + 自动跟随会话自动登记**。
 
@@ -17,7 +17,7 @@
 
 | 组成 | 形态 | 状态 |
 |---|---|---|
-| 插件（Host + Client） | **持久化 profile bundle**：`~/.dsh/profiles/web` 的 `dsh.profile.bundles` 里有 `dsh-launch-pad`，link 到本仓库 `packages/dsh-launch-pad/` | ✅ DSH 每次启动自动加载 |
+| 插件（Host + Client） | **持久化 profile bundle**：`~/.dsh/profiles/web` 的 `dsh.profile.bundles` 里有 `dsh-launch-pad`，link 到本仓库根 `dsh-launch-pad/` | ✅ DSH 每次启动自动加载 |
 | SKILL.md | `~/.agents/skills/service-deck/SKILL.md` | ✅ 已安装，本仓库 `skill/` 有副本 |
 | registry / 日志 | `~/.dsh/service-registry.json`、`~/.dsh/services/logs/` | 持久，跨重启保留 |
 
@@ -26,13 +26,12 @@
 ```
 .
 ├── README.md                    ← 本文件（双语）
-├── packages/dsh-launch-pad/       ← ★ 持久化插件包（包名 dsh-launch-pad，与仓库同名，被 profile link 安装）
-│   ├── package.json             ←   包名 dsh-launch-pad：dsh.bundle.patch + dsh.client 配置（官方规范）
-│   ├── cordis.patch.yml         ←   bundle 行声明（- insert: id/name）
-│   ├── LICENSE                  ←   MIT
-│   └── lib/
-│       ├── index.js             ←   Host：registry/进程/端口仲裁/探测/自动跟随/HTTP RPC/tools
-│       └── client.js            ←   Client：侧边栏按钮 + 悬浮面板（ModuleLoader factory + fetch RPC）
+├── package.json                ← ★ 插件包即仓库根（包名 dsh-launch-pad，官方 git 安装要求包在仓库根）
+├── cordis.patch.yml             ←   bundle 行声明（- insert: id/name）
+├── LICENSE                      ←   MIT
+├── lib/
+│   ├── index.js                 ←   Host：registry/进程/端口仲裁/探测/自动跟随/HTTP RPC/tools
+│   └── client.js                ←   Client：侧边栏按钮 + 悬浮面板（ModuleLoader factory + fetch RPC）
 ├── plugin/                      ← 动态插件备选载荷（无 profile 环境时用 cordis_define 粘贴）
 │   ├── host.js
 │   └── client.js
@@ -44,7 +43,7 @@
 
 ```bash
 # 本地开发安装（已执行）
-dsh plugin --profile web add link:/Users/zhichao/DSH/dsh-launch-pad/packages/dsh-launch-pad
+dsh plugin --profile web add link:/Users/zhichao/DSH/dsh-launch-pad
 
 # 从 GitHub 安装（规范安装方式）
 dsh plugin --profile web add github:realpkuasule/dsh-launch-pad

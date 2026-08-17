@@ -5,7 +5,7 @@ description: 本地服务控制台 Skill。当用户问某个项目"怎么启动
 
 # service-deck 服务控制台
 
-配套 DSH 插件 **service-deck**（已持久化安装进 `~/.dsh/profiles/web` 的 bundle（包名 `dsh-launch-pad`，与仓库同名），DSH 每次启动自动加载，源码在 `~/DSH/dsh-launch-pad/packages/dsh-launch-pad`）：侧边栏底部「服务」按钮 + 悬浮面板（启动/停止/重启按钮组、当前项目/全部标签、可展开日志、自动跟随会话）+ `service_*` agent 工具。本 skill 定义 agent 侧行为规范。
+配套 DSH 插件 **service-deck**（已持久化安装进 `~/.dsh/profiles/web` 的 bundle（包名 `dsh-launch-pad`，与仓库同名），DSH 每次启动自动加载，源码在 `~/DSH/dsh-launch-pad`（插件包即仓库根））：侧边栏底部「服务」按钮 + 悬浮面板（启动/停止/重启按钮组、当前项目/全部标签、可展开日志、自动跟随会话）+ `service_*` agent 工具。本 skill 定义 agent 侧行为规范。
 
 ## 架构速览
 
