@@ -1,6 +1,6 @@
 {
-  "name": "dsh-service-deck",
-  "version": "0.4.1",
+  "name": "dsh-launch-pad",
+  "version": "0.4.2",
   "description": "Local service control deck for DeepSeek Harness: a global per-project service registry with port-conflict arbitration, one-click start/stop/restart buttons in the Web UI, start-command normalization across project types, auto-follow of the active session, and 7 agent tools.",
   "type": "module",
   "main": "lib/index.js",

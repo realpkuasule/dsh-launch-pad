@@ -1,8 +1,8 @@
-# Bundle patch layer for dsh-service-deck.
+# Bundle patch layer for dsh-launch-pad.
 # Referenced by package.json `dsh.bundle.patch`; `dsh plugin add`
 # reconciles this package into the profile's bundle list and this row
 # mounts the plugin. `name` is the package name: the Loader resolves it
 # from the profile's node_modules.
 - insert:
-    - id: dsh-service-deck
-      name: dsh-service-deck
+    - id: dsh-launch-pad
+      name: dsh-launch-pad

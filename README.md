@@ -7,7 +7,7 @@
 > dsh plugin --profile web add github:realpkuasule/dsh-launch-pad
 > # then restart DSH and hard-refresh the page
 > ```
-> Package name: `dsh-service-deck`. Source of the plugin package: [`packages/service-deck/`](./packages/service-deck/).
+> Package name: `dsh-launch-pad`（与仓库同名）。 Source of the plugin package: [`packages/dsh-launch-pad/`](./packages/dsh-launch-pad/).
 
 统一的本地服务管理方案：**任何项目类型的启动命令归一化 + 全局 registry 防端口冲突 + DSH 界面一键启动/停止/重启 + agent 工具双通道 + 自动跟随会话自动登记**。
 
@@ -17,7 +17,7 @@
 
 | 组成 | 形态 | 状态 |
 |---|---|---|
-| 插件（Host + Client） | **持久化 profile bundle**：`~/.dsh/profiles/web` 的 `dsh.profile.bundles` 里有 `dsh-service-deck`，link 到本仓库 `packages/service-deck/` | ✅ DSH 每次启动自动加载 |
+| 插件（Host + Client） | **持久化 profile bundle**：`~/.dsh/profiles/web` 的 `dsh.profile.bundles` 里有 `dsh-launch-pad`，link 到本仓库 `packages/dsh-launch-pad/` | ✅ DSH 每次启动自动加载 |
 | SKILL.md | `~/.agents/skills/service-deck/SKILL.md` | ✅ 已安装，本仓库 `skill/` 有副本 |
 | registry / 日志 | `~/.dsh/service-registry.json`、`~/.dsh/services/logs/` | 持久，跨重启保留 |
 
@@ -26,8 +26,8 @@
 ```
 .
 ├── README.md                    ← 本文件（双语）
-├── packages/service-deck/       ← ★ 持久化插件包（包名 dsh-service-deck，被 profile link 安装）
-│   ├── package.json             ←   dsh.bundle.patch + dsh.client 配置（官方规范）
+├── packages/dsh-launch-pad/       ← ★ 持久化插件包（包名 dsh-launch-pad，与仓库同名，被 profile link 安装）
+│   ├── package.json             ←   包名 dsh-launch-pad：dsh.bundle.patch + dsh.client 配置（官方规范）
 │   ├── cordis.patch.yml         ←   bundle 行声明（- insert: id/name）
 │   ├── LICENSE                  ←   MIT
 │   └── lib/
@@ -44,7 +44,7 @@
 
 ```bash
 # 本地开发安装（已执行）
-dsh plugin --profile web add link:/Users/zhichao/DSH/dsh-launch-pad/packages/service-deck
+dsh plugin --profile web add link:/Users/zhichao/DSH/dsh-launch-pad/packages/dsh-launch-pad
 
 # 从 GitHub 安装（规范安装方式）
 dsh plugin --profile web add github:realpkuasule/dsh-launch-pad
@@ -53,7 +53,7 @@ dsh plugin --profile web add github:realpkuasule/dsh-launch-pad
 # 然后重启 DSH 生效
 ```
 
-`dsh plugin add` 会自动把包名写入 `~/.dsh/profiles/web/package.json` 的 dependencies 和 `dsh.profile.bundles`。验证装载：`dsh --profile web --dump-config | grep -A2 dsh-service-deck`。
+`dsh plugin add` 会自动把包名写入 `~/.dsh/profiles/web/package.json` 的 dependencies 和 `dsh.profile.bundles`。验证装载：`dsh --profile web --dump-config | grep -A2 dsh-launch-pad`。
 
 ## 功能
 
@@ -109,7 +109,7 @@ services:
 ## 通信架构（持久化插件版）
 
 - **Client → Host**：`POST /service-deck/rpc`，header 带 per-process 随机 token（Host 通过 `webServer.tapIndex` 注入 `window.__DSH_SERVICE_DECK_TOKEN__`，与 dsh-archive-panel 同款 loopback 守卫）
-- **Client 挂载**：`window.__ModuleLoader__.load({ id: 'service-deck', factory })` 工厂格式，`require('react')`，注入 `['slots','timer']`
+- **Client 挂载**：`window.__ModuleLoader__.load({ id: 'dsh-launch-pad', factory })` 工厂格式，`require('react')`，注入 `['slots','timer']`
 - **Host 工具**：`ctx.tools.register`，parameters 为原始 JSON Schema 子集（`type/properties/required/additionalProperties/items/enum/const + description/title/default/examples` 注释键；**`type:'json'` 在原始 schema 中非法**，宽松输出用空对象 `{}`）
 - **自动跟随信号**：客户端 `useSessions((state) => state.current)` 选中的会话 id（最高优先级，随每次 list 轮询上报）；兜底为 `agent/created` 与 `user/message` 事件（面板未打开时）
 

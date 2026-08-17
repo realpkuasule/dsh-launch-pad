@@ -7,7 +7,7 @@
 // - 自动跟随：host 的 list 返回 current（当前活跃会话的 cwd），面板直接跟随，
 //   无需手动选工作区；空工作区自动探测并登记由 host 完成。
 window.__ModuleLoader__.load({
-  id: 'dsh-service-deck',
+  id: 'dsh-launch-pad',
   factory: (require) => {
     var module = { exports: {} }
     var exports = module.exports
