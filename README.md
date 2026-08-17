@@ -1,5 +1,14 @@
 # service-deck — DSH 本地服务控制台
 
+> **English**: A local service control deck for DeepSeek Harness. One global registry (`~/.dsh/service-registry.json`) arbitrates ports across all your projects; the Web UI gains a sidebar "服务" button with a floating panel for one-click **start / stop / restart** per service, expandable logs, and a "current project" tab that **auto-follows the session you have selected** (no manual workspace picking; new projects are auto-detected and registered). The same engine is exposed as 7 agent tools (`service_list / detect / register / start / stop / restart / status`), so the agent never guesses start commands again.
+>
+> **Install** (persistent profile bundle, per the official DSH plugin spec — `dsh.bundle.patch` + `dsh.client`):
+> ```bash
+> dsh plugin --profile web add github:realpkuasule/dsh-launch-pad
+> # then restart DSH and hard-refresh the page
+> ```
+> Package name: `dsh-service-deck`. Source of the plugin package: [`packages/service-deck/`](./packages/service-deck/).
+
 统一的本地服务管理方案：**任何项目类型的启动命令归一化 + 全局 registry 防端口冲突 + DSH 界面一键启动/停止/重启 + agent 工具双通道 + 自动跟随会话自动登记**。
 
 解决痛点：每个项目启动命令不一样、agent 靠猜命令给出错误信息、多个服务互相端口冲突、人工启动要记路径和命令、每次切换项目都要手动探测登记。
@@ -8,7 +17,7 @@
 
 | 组成 | 形态 | 状态 |
 |---|---|---|
-| 插件（Host + Client） | **持久化 profile bundle**：`~/.dsh/profiles/web` 的 `dsh.profile.bundles` 里有 `service-deck`，link 到本仓库 `packages/service-deck/` | ✅ DSH 每次启动自动加载 |
+| 插件（Host + Client） | **持久化 profile bundle**：`~/.dsh/profiles/web` 的 `dsh.profile.bundles` 里有 `dsh-service-deck`，link 到本仓库 `packages/service-deck/` | ✅ DSH 每次启动自动加载 |
 | SKILL.md | `~/.agents/skills/service-deck/SKILL.md` | ✅ 已安装，本仓库 `skill/` 有副本 |
 | registry / 日志 | `~/.dsh/service-registry.json`、`~/.dsh/services/logs/` | 持久，跨重启保留 |
 
@@ -16,10 +25,11 @@
 
 ```
 .
-├── README.md                    ← 本文件
-├── packages/service-deck/       ← ★ 持久化插件包（被 profile link 安装）
-│   ├── package.json             ←   dsh.bundle.patch + dsh.client 配置
+├── README.md                    ← 本文件（双语）
+├── packages/service-deck/       ← ★ 持久化插件包（包名 dsh-service-deck，被 profile link 安装）
+│   ├── package.json             ←   dsh.bundle.patch + dsh.client 配置（官方规范）
 │   ├── cordis.patch.yml         ←   bundle 行声明（- insert: id/name）
+│   ├── LICENSE                  ←   MIT
 │   └── lib/
 │       ├── index.js             ←   Host：registry/进程/端口仲裁/探测/自动跟随/HTTP RPC/tools
 │       └── client.js            ←   Client：侧边栏按钮 + 悬浮面板（ModuleLoader factory + fetch RPC）
@@ -33,14 +43,17 @@
 ## 安装 / 更新（持久化）
 
 ```bash
-# 安装（已执行）
+# 本地开发安装（已执行）
 dsh plugin --profile web add link:/Users/zhichao/DSH/dsh-launch-pad/packages/service-deck
+
+# 从 GitHub 安装（规范安装方式）
+dsh plugin --profile web add github:realpkuasule/dsh-launch-pad
 
 # 源码改动后重装（link 安装改源码即可，无需重装；改 package.json 结构才需重跑）
 # 然后重启 DSH 生效
 ```
 
-`dsh plugin add` 会自动把包名写入 `~/.dsh/profiles/web/package.json` 的 dependencies 和 `dsh.profile.bundles`。验证装载：`dsh --profile web --dump-config | grep -A2 service-deck`。
+`dsh plugin add` 会自动把包名写入 `~/.dsh/profiles/web/package.json` 的 dependencies 和 `dsh.profile.bundles`。验证装载：`dsh --profile web --dump-config | grep -A2 dsh-service-deck`。
 
 ## 功能
 
